@@ -10,3 +10,5 @@ const isAuth = (req, res, next) => {
         return res.send({success: false, message: 'Trouble in checking Authentication! Please contact support Team.'})
     }
 }
+
+module.exports = isAuth;

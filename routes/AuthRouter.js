@@ -113,20 +113,20 @@ AuthRouter.post('/register', async (req, res)=>{
 })
 
 
-AuthRouter.get('/checkauth', async(req, res)=>{
-    try{
-        if(req.session.user){
-            return res.send({success: true, user: req.session.user, message: "Succesfully fetched the current logged in User!"})
-        }
-        else{
-            return res.send({success: false, message: "No loggin detected! please login and try again."})
-        }
-    }
-    catch(err){
-        console.log("Error in Checking Authentication:",err)
-        return res.send({success: false, message: 'Trouble in Checking Authentication! Please contact support Team.'})
-    }
-})
+// AuthRouter.get('/authentication ',isAuth, async(req, res)=>{
+//     try{
+//         if(req.session.user){
+//             return res.send({success: true, user: req.session.user, message: "Succesfully fetched the current logged in User!"})
+//         }
+//         else{
+//             return res.send({success: false, message: "No loggin detected! please login and try again."})
+//         }
+//     }
+//     catch(err){
+//         console.log("Error in Checking Authentication:",err)
+//         return res.send({success: false, message: 'Trouble in Checking Authentication! Please contact support Team.'})
+//     }
+// })
 
 
 AuthRouter.get('/logout', isAuth, async(req, res)=>{

@@ -3,13 +3,20 @@ const cors = require('cors');
 const Mongoose = require('mongoose');
 const Session = require('express-session');
 const AuthRouter = require('./routes/AuthRouter');
+const vehicleRouter = require('./routes/vehicleRouter')
+const EmployeeRouter = require('./routes/EmployeeRouter')
 const MongoDbSession = require('connect-mongodb-session')(Session);
 require('dotenv').config();
 
 const app = Express();
 const port = process.env.Port || 4000;
 
-app.use(cors());
+const corsOptions = {   
+    origin: ['http://localhost:4001','http://192.168.0.110:3000'], 
+    credentials: true, 
+};
+
+app.use(cors(corsOptions));
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 
@@ -34,7 +41,14 @@ app.use(Session({
     secret: process.env.SessionKey,
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
+    cookie : {
+        secure : true,
+        sameSite : 'none',
+        httpOnly : true
+    }
 }))
 
 app.use(AuthRouter)
+app.use(vehicleRouter)
+app.use(EmployeeRouter)

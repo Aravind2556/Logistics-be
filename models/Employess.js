@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const driverSchema = new mongoose.Schema({
     id: {type : Number , required : true , unique : true},
     name:{type : String , required : true },
-    Email : {type : String ,required : true , unique : true },
+    Email : {type : String ,required : true , unique : true, trim: true, lowercase: true },
     joinedDate: {type: Date},
     salaryPerMonth: {type : Number},
     phoneNumber : {type : String},
@@ -13,10 +13,11 @@ const driverSchema = new mongoose.Schema({
         {
             id: {type : Number},
             description:{type : String},
-            amount:{type : Number}
+            amount:{type : Number},
+            paymentOn: {type: Date}
         }
     ],
-    workingStatus: {type : String},
+    workingStatus: {type: Boolean},
     releavedOn: {type: Date},
     address: {type : String , required : true },
     identityType: {type : String , required : true },

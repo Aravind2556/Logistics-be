@@ -1,6 +1,7 @@
 const Express = require('express')
 const EmployeeModel = require('../models/Employess')
 const isAuth = require('../middleware/isAuth')
+const moment = require('moment')
 
 const EmployeeRouter = Express.Router()
 
@@ -23,10 +24,10 @@ EmployeeRouter.post('/create-employee', async(req,res)=>{
         }
 
         console.log("checking emolyees",name,joinedDate,salaryPermonth,address,identityType,identityNumber,id,workingStatus)
-        if(id && email && phonenumber && name && joinedDate && salaryPermonth && address && identityType && identityNumber && workingStatus){
+        if(id && email && phonenumber && name && joinedDate && salaryPermonth && address && identityType && identityNumber && (workingStatus===false || workingStatus===true)){
             const isEmployee = await EmployeeModel.findOne({Email : email})
             if(isEmployee){
-                return res.json({success : false , message :"This Employee details is already registed please register new Employee"})
+                return res.send({success : false , message :"This Employee details is already registed please register new Employee"})
             }
             const createEmployee = new EmployeeModel({
                 id : id ,
@@ -40,16 +41,16 @@ EmployeeRouter.post('/create-employee', async(req,res)=>{
                 identityNumber:identityNumber,
                 workingStatus : workingStatus
             })
-            await createEmployee.save()
-            if(createEmployee){
-                return res.json({success : true , message :"Employee detail register successfully"})
+            const isEmployeeCreated = await createEmployee.save()
+            if(isEmployeeCreated){
+                return res.send({success : true , message :"Employee detail registered successfully!"})
             }
             else{
-                return res.send({success : false , message : "Employee details register faild please try again later"})
+                return res.send({success : false , message : "Employee details registration failed! please try again later"})
             }
         }
         else{
-            return res.send({success : false , message : "please provide all details is required"})
+            return res.send({success : false , message : "please provide all details"})
         }
     }
     catch (err) {

@@ -4,7 +4,9 @@ const Mongoose = require('mongoose');
 const Session = require('express-session');
 const AuthRouter = require('./routes/AuthRouter');
 const vehicleRouter = require('./routes/vehicleRouter')
-const EmployeeRouter = require('./routes/EmployeeRouter')
+const EmployeeRouter = require('./routes/EmployeeRouter');
+const tripRouter = require('./routes/TripRouter');
+const BackupRouter = require('./routes/BackupRouter');
 const MongoDbSession = require('connect-mongodb-session')(Session);
 require('dotenv').config();
 
@@ -52,7 +54,12 @@ app.use(Session({
 app.use(AuthRouter)
 app.use(vehicleRouter)
 app.use(EmployeeRouter)
+<<<<<<< HEAD
 
                                             
 
 
+=======
+app.use(tripRouter)
+app.use(BackupRouter)
+>>>>>>> d9b10fa5efa26a400cd26b18a1ac8f8efb028cb2

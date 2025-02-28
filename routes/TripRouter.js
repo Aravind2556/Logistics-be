@@ -88,12 +88,12 @@ tripRouter.get("/fetch-trip/:id", async (req, res)=>{
             return res.send({success: false, message: "Failed to fetch Trip ID!"})
         }
 
-        const Trips = await tripModel.findOne({id: id})
-        if(!Trips){
+        const Trip = await tripModel.findOne({id: id})
+        if(!Trip){
             return res.send({success: false, message: "Trip data not found!"})
         }
 
-        return res.send({success: true, message: "Trip fetched succesfully!", trips: Trips})
+        return res.send({success: true, message: "Trip fetched succesfully!", trip: Trip})
     }
     catch(err){
         console.log("Error in fetching Trip:",err)

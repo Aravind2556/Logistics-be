@@ -10,7 +10,6 @@ const tripSchema = mongoose.Schema({
     endTime: {type: Date},
     status: {type: String, required: true, lowercase: true, trim: true, enum: ["created", "in-transit", "delivered", "cancelled"], default: "created"},
     expenses: [{
-        expenseID: {type: String, lowercase: true, trim: true},
         type: {type: String, enum: ["vehicle", "toll", "other"]},
         amount: {type: Number},
         description: {type: String, trim: true}

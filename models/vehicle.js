@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const VehicleSchema = new mongoose.Schema(
   {
-    vehicleNumber: {type: String,required: true,unique: true,trim: true,uppercase: true,match: /^[A-Z]{2}\d{2}[A-Z]{2}\d{4}$/},
+    vehicleNumber: {type: String,required: true,unique: true,trim: true,uppercase: true,match: /^[A-Z]{2}\d{2}[A-Z]\d{4}$/},
     name: {type: String,required: true,trim: true},
     manufacturer: {type: String,required: true,trim: true },
     yearOfManufacture: {type: Number,required: true,min: 1900,max: new Date().getFullYear()},

@@ -9,11 +9,6 @@ const vehicleRouter = Express.Router()
 vehicleRouter.post('/create-vehicle',  async (req, res) => {
     try {
         const { vehicleNumber, name, manufacturer, yearofmanufacture, type, desc , nextServiceDate } = req.body
-
-        if (!moment(nextServiceDate, moment.ISO_8601, true).isValid()) {
-            return res.status(400).json({ error: "Invalid date format for nextServiceDate" });
-        }
-
         console.log("create vechile", vehicleNumber, name, manufacturer, yearofmanufacture, type, desc , nextServiceDate)
         if (vehicleNumber && name && manufacturer && yearofmanufacture && type && desc && nextServiceDate) {
             const isvehicleNumber = await vehicleModel.findOne({ vehicleNumber: vehicleNumber })
@@ -28,7 +23,7 @@ vehicleRouter.post('/create-vehicle',  async (req, res) => {
                 yearOfManufacture: yearofmanufacture,
                 type: type,
                 desc: desc,
-                nextServiceDate : nextServiceDate
+                nextServiceDate : new Date(nextServiceDate)
             })
             await createVehicle.save()
 
@@ -53,25 +48,27 @@ vehicleRouter.post('/create-vehicle',  async (req, res) => {
 })
 
 //API end points is using vechile maintance details
-vehicleRouter.put('/vehicle-maintance/:vehicleNumber',isAuth,async (req,res)=>{
+vehicleRouter.put('/vehicle-maintance/:vehicleNumber',async (req,res)=>{
     try{
         const {vehicleNumber}=req.params
-        const {lastServiceDate,nextServiceDate}=req.body
-
-        if (!moment(lastServiceDate, moment.ISO_8601, true).isValid()) {
-            return res.status(400).json({ error: "Invalid date format for lastServiceDate" });
-        }
-
-        if (!moment(nextServiceDate, moment.ISO_8601, true).isValid()) {
-            return res.status(400).json({ error: "Invalid date format for nextServiceDate" });
-        }
-        
-        if(vehicleNumber && lastServiceDate && nextServiceDate ){
+        const {lastServiceDate,nextServiceDate,name, manufacturer, yearofmanufacture, type, desc}=req.body
+        console.log("vehicle update details",lastServiceDate,nextServiceDate,name, manufacturer, yearofmanufacture, type, desc)
+        if(vehicleNumber && lastServiceDate && nextServiceDate && name && manufacturer && yearofmanufacture &&  type && desc){
             const isvehicleNumber = await vehicleModel.findOne({vehicleNumber : vehicleNumber}) 
             if(isvehicleNumber){
                 const updateVehicleMaintenance = await vehicleModel.updateOne(
                     { vehicleNumber },
-                    { $set: {lastServiceDate : lastServiceDate,nextServiceDate : nextServiceDate, updatedAt: new Date() } }
+                    { $set: {
+                        lastServiceDate : new Date(lastServiceDate),
+                        nextServiceDate : new Date(nextServiceDate), 
+                        name : name ,
+                        manufacturer : manufacturer ,
+                        yearOfManufacture : yearofmanufacture,
+                        type : type,
+                        desc : desc, 
+                        updatedAt: new Date() 
+                    } 
+                }
                 );
                 if(updateVehicleMaintenance){
                     return res.send({success : true , message : "This vehicle service maintance update successfully"})
@@ -166,10 +163,6 @@ vehicleRouter.delete('/fetch-vehicle/:vehicleNumber',async(req,res)=>{
         return res.send({ success: false, message: "A troubling error occurred. Please contact the developer." });
     }
 })
-
-
-
-
 
 
 module.exports = vehicleRouter

@@ -37,6 +37,8 @@ AuthRouter.post('/login', async(req, res)=>{
                 return res.send({success: false, message: "Failed to create session!"})
             }
 
+            console.log("Session dfata:",req.session.user)
+
             return res.send({success: true, message: "Logged in successfully!", user: req.session.user})
         })
 
@@ -113,10 +115,15 @@ AuthRouter.post('/register', async (req, res)=>{
 })
 
 
+<<<<<<< HEAD
+AuthRouter.get('/authentication',isAuth, async(req, res)=>{
+=======
 AuthRouter.get('/authentication', async(req, res)=>{
+>>>>>>> 54e1cd1fdfab8c79faa30a60366f79a6bccae232
     try{
+        console.log("Api called")
         if(req.session.user){
-            return res.send({success: true, user: req.session.user, message: "Succesfully fetched the current logged in User!"})
+            return res.send({success: true, user: req.session.user.email, message: "Succesfully fetched the current logged in User!"})
         }
         else{
             return res.send({success: false, message: "No loggin detected! please login and try again."})

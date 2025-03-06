@@ -8,7 +8,7 @@ const tripRouter = Express.Router()
 
 tripRouter.post('/create-trip',async(req, res)=>{
     try{
-        const {vehicleNumber, employeeId, startLocation, endLocation, startTime, endTime, earnedIncome} = req.body
+        const {vehicleNumber, employeeId, startLocation, endLocation, startTime, expenses, endTime, earnedIncome} = req.body
 
         if(!vehicleNumber || !employeeId || !startLocation || !endLocation || !startTime ){
             return res.send({success: false, message: "Please provide all the required fields!"})
@@ -45,6 +45,10 @@ tripRouter.post('/create-trip',async(req, res)=>{
 
         if(earnedIncome){
             tempTrip.earnedIncome = earnedIncome
+        }
+
+        if(expenses){
+            tempTrip.expenses = expenses
         }
 
         const Trip = new tripModel(tempTrip)

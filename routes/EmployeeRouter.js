@@ -129,9 +129,9 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
   EmployeeRouter.put('/Update-employee/:id',async(req,res)=>{
     try{
       const {id}=req.params
-      const {name,phonenumber,joinedDate,address,identityType,identityNumber,workingStatus}=req.body
-      console.log("update employee",id,name,phonenumber,joinedDate,address,identityType,identityNumber,workingStatus)
-      if(id && name && phonenumber && joinedDate && salaryPermonth && address && identityType && identityNumber && (workingStatus===false || workingStatus===true) ){
+      const {name,phonenumber,joinedDate,address,identityType,identityNumber,workingStatus,releavedOn}=req.body
+      console.log("update employee",id,name,phonenumber,joinedDate,address,identityType,identityNumber,workingStatus,releavedOn)
+      if(id && name && phonenumber && joinedDate &&  address && identityType && identityNumber && releavedOn && (workingStatus===false || workingStatus===true) ){
         const isEmployee = await EmployeeModel.findOne({id : id})
         if(isEmployee){
           const upadateEmployee = await EmployeeModel.updateOne(
@@ -143,6 +143,7 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
               joinedDate : new Date(joinedDate) ,
               address : address ,
               identityType : identityType ,
+              releavedOn : new Date(releavedOn),
               identityNumber : identityNumber , 
               workingStatus : workingStatus
             }}
@@ -206,5 +207,44 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
       return res.send({success: false,message: "A troubling error occurred. Please contact the developer."});
     }
   })
+
+
+  EmployeeRouter.get("/fetch-employee", async (req, res)=>{
+    try{
+      const employee = await EmployeeModel.find({})
+        if(!employee){
+            return res.send({success: false, message: "Employee data not found!"})
+        }
+
+        return res.send({success: true, message: "Employee fetched succesfully!", EmployeeData : employee})
+    }
+    catch(err){
+        console.log("Error in fetching Trip:",err)
+        return res.send({success: false, message: "Trouble in fetching Trip! Please contact developer."})
+    }
+})
+
+
+
+EmployeeRouter.get("/fetch-employee/:id", async (req, res)=>{
+  try{
+    const {id}=req.params
+    if(!id){
+      return res.send({success: false, message: "Employee id not found!"})
+    }
+    const employee = await EmployeeModel.findOne({id : id})
+      if(!employee){
+          return res.send({success: false, message: "Employee data not found!"})
+      }
+
+      return res.send({success: true, message: "Employee fetched succesfully!", EmployeeData : employee})
+  }
+  catch(err){
+      console.log("Error in fetching Trip:",err)
+      return res.send({success: false, message: "Trouble in fetching Trip! Please contact developer."})
+  }
+})
+  
+
 
 module.exports = EmployeeRouter

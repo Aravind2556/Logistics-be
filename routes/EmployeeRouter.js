@@ -6,7 +6,7 @@ const isAuth = require('../middleware/isAuth')
 const EmployeeRouter = Express.Router()
 
 // API END point is using create employee
-EmployeeRouter.post('/create-employee',isAuth, async(req,res)=>{
+EmployeeRouter.post('/create-employee', async(req,res)=>{
     try{
         let employee = await EmployeeModel.find({})
         let id
@@ -56,7 +56,7 @@ EmployeeRouter.post('/create-employee',isAuth, async(req,res)=>{
 })
 
 // API END point is using Update Salery
-EmployeeRouter.put('/Update-employee-salery/:id', isAuth, async (req, res) => {
+EmployeeRouter.put('/Update-employee-salery/:id',  async (req, res) => {
     try {
       const { id } = req.params;
       const { description, amount} = req.body;
@@ -126,7 +126,7 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
   });
 
   // API END point is using Update Salery
-  EmployeeRouter.put('/Update-employee/:id',isAuth,async(req,res)=>{
+  EmployeeRouter.put('/Update-employee/:id',async(req,res)=>{
     try{
       const {id}=req.params
       const {name,phonenumber,joinedDate,address,identityType,identityNumber,workingStatus}=req.body
@@ -177,7 +177,7 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
   })
 
 // API end point is using Employee delete 
-  EmployeeRouter.delete('/delete-Employee/:id',isAuth,async (req,res)=>{
+  EmployeeRouter.delete('/delete-Employee/:id',async (req,res)=>{
     try{
       const {id}=req.params
       if(id){

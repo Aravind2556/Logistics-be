@@ -14,9 +14,9 @@ const tripSchema = mongoose.Schema({
         amount: {type: Number},
         description: {type: String, trim: true}
     }],
-    earnedIncome: {type: Number},
-    totalExpenses: {type: Number},
-    profit: {type: Number}
+    earnedIncome: {type: Number,  default : 0},
+    totalExpenses: {type: Number , default : 0},
+    profit: {type: Number , default : 0}
 },
 {
     timestamps: {createdAt: true, updatedAt: true}

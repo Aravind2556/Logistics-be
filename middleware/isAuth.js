@@ -1,9 +1,9 @@
 const isAuth = (req, res, next) => {
     try{
-        if(!req.session.user){
-            return res.send({success: false, message: 'Please login to access this page!'})
+        if(req.session.user){
+            next()
         }
-        next()
+        return res.send({success: false, message: 'Please login to access this page!'})
     }
     catch(err){
         console.log("Error in isAuth:",err)

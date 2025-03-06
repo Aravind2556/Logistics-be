@@ -48,7 +48,7 @@ vehicleRouter.post('/create-vehicle',  async (req, res) => {
 })
 
 //API end points is using vechile maintance details
-vehicleRouter.put('/vehicle-maintance/:vehicleNumber',async (req,res)=>{
+vehicleRouter.put('/vehicle-maintance/:vehicleNumber', async (req,res)=>{
     try{
         const {vehicleNumber}=req.params
         const {lastServiceDate,nextServiceDate,name, manufacturer, yearofmanufacture, type, desc}=req.body
@@ -136,7 +136,7 @@ vehicleRouter.get('/fetch-vehicle/:vehicleNumber', async (req,res)=>{
 })
 
 // API END points is using delete individual vehicle
-vehicleRouter.delete('/fetch-vehicle/:vehicleNumber',async(req,res)=>{
+vehicleRouter.delete('/fetch-vehicle/:vehicleNumber', async(req,res)=>{
     try{
         const {vehicleNumber}=req.params
         if(vehicleNumber){

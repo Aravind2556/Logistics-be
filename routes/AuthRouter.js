@@ -113,7 +113,7 @@ AuthRouter.post('/register', async (req, res)=>{
 })
 
 
-AuthRouter.get('/authentication ',isAuth, async(req, res)=>{
+AuthRouter.get('/authentication', async(req, res)=>{
     try{
         if(req.session.user){
             return res.send({success: true, user: req.session.user, message: "Succesfully fetched the current logged in User!"})
@@ -129,7 +129,7 @@ AuthRouter.get('/authentication ',isAuth, async(req, res)=>{
 })
 
 
-AuthRouter.get('/logout', isAuth, async(req, res)=>{
+AuthRouter.get('/logout', async (req, res)=>{
     try{
         console.log("logout called:",req.session.user)
         if(req.session.user){

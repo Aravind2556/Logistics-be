@@ -14,7 +14,7 @@ const app = Express();
 const port = process.env.Port || 4000;
 
 const corsOptions = {   
-    origin: ['http://localhost:4001','http://192.168.0.110:3000'], 
+    origin: ['http://localhost:4001','http://192.168.0.110:3000',"http://localhost:3000"], 
     credentials: true, 
 };
 
@@ -33,6 +33,8 @@ Mongoose.connect(process.env.MongoDBURI)
 .catch((err)=>{
     console.log("Error in connecting to MongoDB:",err);
 })
+
+app.set('trust proxy', 1);
 
 const store = new MongoDbSession({
     uri: process.env.MongoDBURI,
@@ -54,12 +56,4 @@ app.use(Session({
 app.use(AuthRouter)
 app.use(vehicleRouter)
 app.use(EmployeeRouter)
-<<<<<<< HEAD
 
-                                            
-
-
-=======
-app.use(tripRouter)
-app.use(BackupRouter)
->>>>>>> d9b10fa5efa26a400cd26b18a1ac8f8efb028cb2

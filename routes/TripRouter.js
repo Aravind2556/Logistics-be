@@ -2,10 +2,11 @@ const Express = require('express')
 const tripModel = require('../models/Trip')
 const vehicleModel = require('../models/vehicle')
 const employeeModel = require('../models/Employess')
+const isAuth = require('../middleware/isAuth')
 
 const tripRouter = Express.Router()
 
-tripRouter.post('/create-trip', async(req, res)=>{
+tripRouter.post('/create-trip',async(req, res)=>{
     try{
         const {vehicleNumber, employeeId, startLocation, endLocation, startTime, endTime, earnedIncome} = req.body
 

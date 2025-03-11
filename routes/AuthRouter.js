@@ -115,11 +115,7 @@ AuthRouter.post('/register', async (req, res)=>{
 })
 
 
-<<<<<<< HEAD
 AuthRouter.get('/authentication',isAuth, async(req, res)=>{
-=======
-AuthRouter.get('/authentication', async(req, res)=>{
->>>>>>> 54e1cd1fdfab8c79faa30a60366f79a6bccae232
     try{
         console.log("Api called")
         if(req.session.user){

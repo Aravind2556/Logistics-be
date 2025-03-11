@@ -5,7 +5,6 @@ const isAuth = async (req, res, next) => {
         if(req.session.user){
             next()
         }
-<<<<<<< HEAD
 
         const fetchUser = await UserModel.findOne({email: req.session.user.email.toLowerCase()})
         if(!fetchUser){
@@ -13,9 +12,6 @@ const isAuth = async (req, res, next) => {
         }
 
         next()
-=======
-        return res.send({success: false, message: 'Please login to access this page!'})
->>>>>>> 54e1cd1fdfab8c79faa30a60366f79a6bccae232
     }
     catch(err){
         console.log("Error in isAuth:",err)

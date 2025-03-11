@@ -71,8 +71,6 @@ EmployeeRouter.put('/Update-employee-salery/:id',  async (req, res) => {
       if (!employee) {
         return res.send({success: false,message: "Employee not found. Please check the id."});
       }
-
-
       const monthlySalary = employee.salaryPerMonth
       const JoinedDate = employee.joinedDate
       const currentDate = new Date()
@@ -110,6 +108,9 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
   
       // Calculate remaining salary for the month using salaryPerMonth minus the total sent
       employee.remainingSalary = TotalAmount - totalSent;
+      if(employee.remainingSalary < 0){
+        return res.send({success : true , message : `Use cannot enter the transaction amount more ${Math.abs(employee.remainingSalary)}`})
+      }
   
       // Save the updated employee record
       await employee.save();
@@ -117,7 +118,7 @@ console.log("Total amount to be send:",salaryPerDay*daysDifference)
       return res.status(200).send({success: true,message: "Salary transaction updated successfully",
         data: newTransaction,
         totalSent: totalSent,
-        remainingSalary: employee.remainingSalary
+        remainingSalary:employee.remainingSalary
       });
     } catch (err) {
       console.error("A troubling error occurred in Update-employee-salery", err);

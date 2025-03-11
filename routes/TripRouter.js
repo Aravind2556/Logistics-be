@@ -10,7 +10,7 @@ tripRouter.post('/create-trip',async(req, res)=>{
     try{
         const {vehicleNumber, employeeId, startLocation, endLocation, startTime, expenses, endTime, earnedIncome} = req.body
 
-        if(!vehicleNumber || !employeeId || !startLocation || !endLocation || !startTime ){
+        if(!vehicleNumber || !employeeId || !startLocation || !endLocation || !startTime || !earnedIncome){
             return res.send({success: false, message: "Please provide all the required fields!"})
         }
 
@@ -122,7 +122,7 @@ tripRouter.post("/update-trip/:id", async (req, res)=>{
 
         const {vehicleNumber, employeeId, startLocation, endLocation, startTime, endTime, status, expenses, earnedIncome} = req.body
 
-        if(!vehicleNumber || !employeeId || !startLocation || !endLocation || !startTime ){
+        if(!vehicleNumber || !employeeId || !startLocation || !endLocation || !startTime || !earnedIncome){
             return res.send({success: false, message: "Please provide all the required fields!"})
         }
 

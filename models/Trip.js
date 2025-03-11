@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const tripSchema = mongoose.Schema({
     id: {type: Number, required: true, unique: true},
-    vehicleNumber: {type: String, required: true, lowercase: true, trim: true},
+    vehicleNumber: {type: String, required: true},
     employeeId: {type: Number, required: true},
     startLocation: {type: String, required: true},
     endLocation: {type: String, required: true},

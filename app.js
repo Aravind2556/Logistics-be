@@ -11,10 +11,10 @@ const MongoDbSession = require('connect-mongodb-session')(Session);
 require('dotenv').config();
 
 const app = Express();
-const port = process.env.Port || 4000;
+const port =  4001;
 
 const corsOptions = {
-    origin: ['http://localhost:4001','http://192.168.0.110:3000', 'https://logistics-topaz.vercel.app'],
+    origin: ['http://localhost:4001','http://192.168.0.110:3000', 'https://logistics-topaz.vercel.app','http://localhost:3000'],
     credentials: true, 
 };
 
@@ -46,11 +46,11 @@ app.use(Session({
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie : {
-        secure : true,
-        sameSite : 'none',
-        httpOnly : true
-    }
+    // cookie : {
+    //     secure : true,
+    //     sameSite : 'none',
+    //     httpOnly : true
+    // }
 }))
 
 app.use(AuthRouter)
